@@ -6,24 +6,29 @@
 //  Copyright © 2020 Abdultawab Alubidy. All rights reserved.
 //
 
-#include <stdio.h>
+#include<stdio.h>
+#define TNOCHAR 128  /* Total Number of characters is 128: 0 - 127 */
 
 int main(void)
 {
-    float fahr, celsius;
-    int lower, upper, step;
+    int c,i,j;
     
-    lower = 0;
-    step = 20;
-    upper = 300;
+    int character[TNOCHAR];
     
-    printf("  C     F\n\n");
-    celsius = lower;
-    while(celsius <= upper)
+    for(i=0;i<TNOCHAR;++i)
+        character[i] = 0;
+    
+    while((c=getchar())!=EOF)
+        ++character[c];
+    
+    for(i=0;i<TNOCHAR;++i)
     {
-        fahr = (9.0/5.0) * celsius + 32.0;
-        printf("%3.0f %6.1f\n", celsius, fahr);
-        celsius = celsius + step;
+        putchar(i);
+        
+        for(j=0;j<character[i];++j)
+            putchar('*');
+        
+        putchar('\n');
     }
     return 0;
 }
