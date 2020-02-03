@@ -1,21 +1,61 @@
-#include <stdio.h>
-#define NONBLANK '-'
 
-int main()
+#include<stdio.h>
+#define MAXLINE 1000
+
+int mgetline(char line[],int lim);
+void reverse(char rline[]);
+
+int main(void)
 {
-    int c, lastc;
-    lastc=NONBLANK;
-    while ((c=getchar()!=EOF))
+    int len;
+    char line[MAXLINE];
+    
+    while((len=mgetline(line,MAXLINE))>0)
     {
-        if (c== ' ')
-        {
-            if (lastc!=' ')
-                putchar(c);
-        }
-        else
-            putchar(c);
-        lastc=c;
-        
+        reverse(line);
+        printf("%s",line);
     }
+    
     return 0;
 }
+
+int mgetline(char s[],int lim)
+{
+    int i,c;
+    
+    for(i=0;i<lim-1 &&(c=getchar())!=EOF && c != '\n';++i)
+        s[i] = c;
+    
+    if( c == '\n')
+    {
+        s[i] = c;
+        ++i;
+    }
+    s[i] = '\0';
+    
+    return i;
+}
+
+void reverse(char rline[])
+{
+    int i,j;
+    char temp;
+    
+    for(i=0;rline[i]!='\0';++i)
+        ;
+    --i;
+    if(rline[i]=='\n')
+        --i;
+    
+    j = 0;
+    
+    while(j < i)
+    {
+        temp = rline[j];
+        rline[j] = rline[i];
+        rline[i] = temp;
+        --i;
+        ++j;
+    }
+}
+
